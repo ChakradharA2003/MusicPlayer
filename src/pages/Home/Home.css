@@ -21,6 +21,10 @@ Home.css
     height: auto;
     border-radius: 8px;
   }
+
+  .custom-class{
+    width: 100vw;
+  }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {

@@ -19,7 +19,7 @@ const SongCard = ({ id, title, artist, thumbnail, onPlay, url }) => {
   const toggleFavorite = () => {
     const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     let updatedFavorites;
-    console.log(savedFavorites);
+
     if (isFavorite) {
       // If already in favorites, remove the song
       updatedFavorites = savedFavorites.filter((song) => song.id !== id);
@@ -31,9 +31,9 @@ const SongCard = ({ id, title, artist, thumbnail, onPlay, url }) => {
       ];
     }
 
-    // ✅ Corrected: Save updated list to localStorage
+    // Save updated list to localStorage
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-    setIsFavorite(!isFavorite); // Toggle favorite status
+    setIsFavorite(!isFavorite);
   };
 
   // Add to recently played list
@@ -45,7 +45,7 @@ const SongCard = ({ id, title, artist, thumbnail, onPlay, url }) => {
       ...playedSongs.filter((song) => song.id !== id), // Avoid duplicates
     ].slice(0, 10); // Limit to 10 recent songs
 
-    // ✅ Corrected: Save updated list to localStorage
+    // Save updated list to localStorage
     localStorage.setItem(
       "recentlyPlayed",
       JSON.stringify(updatedPlayedSongs)
@@ -60,18 +60,23 @@ const SongCard = ({ id, title, artist, thumbnail, onPlay, url }) => {
 
   return (
     <div
-      className="bg-spotifyGray p-3 rounded-lg hover:bg-spotifyBlack cursor-pointer transition transform hover:scale-105"
+      className="bg-spotifyGray p-3 rounded-lg hover:bg-spotifyBlack cursor-pointer transition transform hover:scale-105 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
       onClick={handlePlay}
     >
+      {/* Thumbnail */}
       <img
         src={thumbnail}
         alt={title}
-        className="w-full h-40 md:h-48 lg:h-56 rounded-lg object-cover"
+        className="w-full h-40 sm:h-44 md:h-48 lg:h-56 rounded-lg object-cover"
       />
-      <h3 className="text-white font-bold mt-2 text-sm md:text-base lg:text-lg">
+
+      {/* Song Title */}
+      <h3 className="text-white font-bold mt-2 text-sm md:text-base lg:text-lg truncate">
         {title}
       </h3>
-      <p className="text-gray-400 text-xs md:text-sm">{artist}</p>
+
+      {/* Artist Name */}
+      <p className="text-gray-400 text-xs md:text-sm truncate">{artist}</p>
 
       {/* Like/Unlike Button */}
       <button
@@ -79,8 +84,8 @@ const SongCard = ({ id, title, artist, thumbnail, onPlay, url }) => {
           e.stopPropagation(); // Prevent parent onClick when button is clicked
           toggleFavorite(); // Call function to add/remove favorite
         }}
-        className={`mt-2 text-xs px-2 py-1 rounded ${
-          isFavorite ? "bg-red-500" : "bg-gray-500"
+        className={`mt-2 text-xs px-3 py-1 rounded-md transition ${
+          isFavorite ? "bg-red-500 text-white" : "bg-gray-500 text-white"
         }`}
       >
         {isFavorite ? "❤️ Unfavorite" : "🤍 Favorite"}
@@ -90,3 +95,4 @@ const SongCard = ({ id, title, artist, thumbnail, onPlay, url }) => {
 };
 
 export default SongCard;
+

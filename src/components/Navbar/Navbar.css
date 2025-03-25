@@ -1,0 +1,30 @@
+custom-class {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.custom-input-field-container{
+    margin-right: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .custom-class {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .custom-class-two {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 96%;
+    }
+
+    .custom-input-field-container{
+        width: 96%;
+        margin-right: 40px;
+    }
+}
