@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import Home from "./pages/Home/Home";
+import Favorites from "./pages/Favorites/Favorites";
+import RecentlyPlayed from "./pages/RecentlyPlayed/RecentlyPlayed";
+import Player from "./components/Player";
 
-function App() {
+const App = () => {
+  const [activePage, setActivePage] = useState("home");
+  const [searchResults, setSearchResults] = useState([]);
+  const [currentSong, setCurrentSong] = useState({
+    url: "",
+    title: "",
+    artist: "",
+    thumbnail: "",
+  });
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // Handle song play
+  const playSong = (url, title, artist, thumbnail) => {
+    setCurrentSong({ url, title, artist, thumbnail });
+    setIsPlaying(true);
+  };
+
+  // Handle play/pause toggle
+  const handlePlay = () => setIsPlaying(true);
+  const handlePause = () => setIsPlaying(false);
+
+  // Render appropriate page based on state
+  const renderPage = () => {
+    switch (activePage) {
+      case "home":
+        return <Home searchResults={searchResults} onPlay={playSong} />;
+      case "favorites":
+        return <Favorites onPlay={playSong} />;
+      case "recentlyPlayed":
+        return <RecentlyPlayed onPlay={playSong} />;
+      default:
+        return <Home searchResults={searchResults} onPlay={playSong} />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex h-screen bg-spotifyBlack">
+      <Sidebar setActivePage={setActivePage} />
+      <div className="flex-1 overflow-y-auto">
+        <Navbar setSearchResults={setSearchResults} setActivePage={setActivePage} />
+        {renderPage()}
+      </div>
+      <Player
+        url={currentSong.url}
+        isPlaying={isPlaying}
+        onPlay={handlePlay}
+        onPause={handlePause}
+        thumbnail={currentSong.thumbnail}
+        title={currentSong.title}
+        artist={currentSong.artist}
+      />
     </div>
   );
-}
+};
 
 export default App;
+
