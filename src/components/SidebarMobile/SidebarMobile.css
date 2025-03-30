@@ -1,0 +1,59 @@
+/* src/components/SidebarMobile.css */
+:root {
+    --spotify-gray: #282828;
+    --spotify-green: #1db954;
+    --text-white: #ffffff;
+    --border-color: #404040; /* Darker border, adjust as needed */
+  }
+  
+  .sidebar-mobile-container {
+    position: relative; /* Needed for absolute positioning of the menu */
+    /* This container is displayed via App.css's media query */
+  }
+  
+  .sidebar-mobile-toggle-button {
+    background: none;
+    border: none;
+    color: var(--text-white);
+    cursor: pointer;
+    padding: 0.25rem; /* Add slight padding */
+    display: flex; /* Center icon */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidebar-mobile-toggle-button:focus {
+    outline: 1px solid var(--spotify-green); /* Add focus outline */
+    border-radius: 4px;
+  }
+  
+  .sidebar-mobile-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem); /* Position below the button */
+    right: 0;
+    width: 180px; /* Equivalent to w-48, adjust as needed */
+    background-color: var(--spotify-gray);
+    color: var(--text-white);
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+    border: 1px solid var(--border-color); /* border border-gray-700 */
+    padding: 0.75rem; /* p-3 */
+    z-index: 60; /* Ensure it's above navbar content */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* space-y-2 */
+  }
+  
+  .sidebar-mobile-menu-item {
+    padding: 0.5rem; /* p-2 */
+    border-radius: 0.5rem; /* rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-align: left; /* Ensure text aligns left */
+  }
+  
+  .sidebar-mobile-menu-item:hover,
+  .sidebar-mobile-menu-item:focus {
+    background-color: var(--spotify-green);
+    outline: none; /* Remove default focus */
+  }

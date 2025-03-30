@@ -1,0 +1,58 @@
+/* src/pages/Favorites/Favorites.css */
+/* Inherit styles from Home.css or define common styles globally */
+/* We can reuse classes if defined globally or re-declare them here */
+
+:root {
+    --text-white: #ffffff;
+    --text-gray: #b3b3b3;
+    --grid-gap: 1rem; /* Default gap */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+  }
+  
+  .favorites-page-container {
+    width: 100%;
+  }
+  
+  .page-title { /* Same as Home */
+    color: var(--text-white);
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 1rem; /* mb-4 */
+  }
+  
+  @media (min-width: 768px) { /* md */
+    .page-title {
+      font-size: 1.875rem; /* text-3xl */
+      margin-bottom: 1.5rem; /* mb-6 */
+    }
+  }
+  
+  .empty-message { /* Different from Home's loading message */
+    color: var(--text-gray);
+    text-align: center;
+    padding: 2rem;
+    font-size: 1rem;
+  }
+  
+  .song-grid-container { /* Same grid as Home */
+    display: grid;
+    gap: var(--grid-gap);
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  
+  /* Responsive grid adjustments (same as Home) */
+  @media (min-width: var(--breakpoint-sm)) {
+      .song-grid-container {
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+          gap: 1.25rem;
+      }
+  }
+  
+  @media (min-width: var(--breakpoint-lg)) {
+      .song-grid-container {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 1.5rem;
+      }
+  }

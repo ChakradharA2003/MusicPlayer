@@ -1,38 +1,110 @@
-.App {
-  text-align: center;
+/* src/App.css */
+/* Using CSS variables from a global scope (like index.css) or redefining */
+:root {
+  --spotify-black: #121212;
+  --navbar-height: 60px; /* Estimate based on padding, adjust if needed */
+  --player-height: 65px; /* Estimate based on Player padding/content, adjust */
+  --sidebar-width: 220px; /* w-64 */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Basic reset and body styles (consider moving to index.css) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html, body {
+  height: 100%;
+  font-family: sans-serif; /* Add a base font */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root { /* Target the root element where React mounts */
+    height: 100%;
+}
+
+/* Main application container */
+.app-container {
+  background-color: var(--spotify-black);
+  min-height: 100vh; /* Ensure it fills viewport height */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column; /* Stack navbar, main-layout, player */
+  /* Prevent content from going under fixed navbar/player */
+  /* Padding will be applied to the scrollable area */
 }
 
-.App-link {
-  color: #61dafb;
+/* Layout for main content and sidebar */
+.main-layout {
+  display: flex;
+  flex-grow: 1; /* Allow this section to fill space between navbar and player */
+  overflow: hidden; /* Prevent layout issues */
+  /* Adjust top/bottom based on actual fixed element heights */
+    padding-top: var(--navbar-height);
+    padding-bottom: var(--player-height);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Sidebar wrapper (for desktop) */
+.sidebar-desktop-wrapper {
+  display: none; /* Hidden by default (mobile-first) */
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
+  /* Actual sidebar styling should be in SidebarDesktop.css */
+}
+
+/* Main content area where pages are rendered */
+.main-content {
+  flex-grow: 1; /* Take remaining horizontal space */
+  overflow-y: auto; /* Allow only vertical scrolling for content */
+  padding: 1rem; /* Add some padding around the page content */
+  margin-top: 25px;
+  /* Custom scrollbar styling can be applied here or globally */
+}
+
+/* Optional inner wrapper for content constraints */
+.content-inner-wrapper {
+  max-width: 1280px; /* Equivalent to max-w-7xl */
+  margin: 0 auto; /* Center the content if needed */
+  padding: 0 1rem; /* Add horizontal padding inside the content area */
+}
+
+/* Wrapper for the fixed player */
+.player-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40; /* Below navbar */
+  /* Actual player styling should be in Player.css */
+}
+
+/* Responsive adjustments (Tablet/Desktop) */
+@media (min-width: 768px) { /* md breakpoint */
+  .main-layout {
+    /* Now the sidebar will take its space, and main-content will fill the rest */
   }
-  to {
-    transform: rotate(360deg);
+
+  .sidebar-desktop-wrapper {
+    display: block; /* Show sidebar */
+    width: var(--sidebar-width);
+    position: fixed; /* Keep sidebar fixed */
+    top: var(--navbar-height); /* Position below navbar */
+    left: 0;
+    bottom: var(--player-height); /* Extend to the bottom above the player */
+    overflow-y: auto; /* Allow sidebar to scroll independently */
+  }
+
+  /* Main content area adjustment */
+  .main-content {
+    margin-left: var(--sidebar-width); /* Push content to the right by sidebar width */
+    padding: 1.5rem; /* Adjust padding as needed */
+    height: auto; /* Let height be determined by content */
+    margin-top: 0px;
+    /* No need for fixed height calculation here as main-layout grows */
+  }
+
+  .content-inner-wrapper {
+    padding-left: 0; /* Remove left padding as main-content is already shifted */
+    padding-right: 0; /* Remove right padding for full width within main-content */
+    margin: 0 auto; /* Keep centered */
+    max-width: 1280px; /* Maintain max width */
   }
 }

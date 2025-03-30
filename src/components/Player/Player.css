@@ -1,0 +1,298 @@
+/* src/components/Player.css */
+:root {
+    --spotify-gray: #282828; /* Background color */
+    --spotify-green: #1db954; /* Accent color */
+    --text-white: #ffffff;
+    --text-gray: #b3b3b3;
+    --progress-bar-bg: #535353; /* Background of the track */
+    --progress-bar-fg: #b3b3b3; /* Color of the filled track */
+    --progress-bar-thumb: #ffffff; /* Color of the slider handle */
+    --player-height: 88px; /* Should match App.css if consistent height needed */
+  }
+  
+  .player-container {
+    background-color: var(--spotify-gray);
+    width: 100%;
+    height: var(--player-height);
+    padding: 0 1rem; /* px-4 equivalent */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribute space */
+    color: var(--text-white);
+    box-sizing: border-box;
+    gap: 1rem; /* Space between main sections */
+    /* Fixed positioning is handled by player-wrapper in App.css */
+  }
+  
+  /* Left: Song Info */
+  .player-song-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* space-x-4, adjust */
+    min-width: 180px; /* Ensure minimum space */
+    flex: 1 1 0; /* Allow shrinking/growing, basis 0 */
+  }
+  
+  .player-thumbnail {
+    width: 56px; /* w-14 approx */
+    height: 56px; /* h-14 approx */
+    border-radius: 0.375rem; /* rounded-lg */
+    object-fit: cover; /* Ensure image covers */
+  }
+  
+  .player-text-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent text overflow */
+  }
+  
+  .player-title {
+    font-size: 0.875rem; /* text-sm approx */
+    font-weight: 600; /* semi-bold */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .player-artist {
+    font-size: 0.75rem; /* text-xs */
+    color: var(--text-gray);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Center: Controls & Progress */
+  .player-controls-progress {
+    display: flex;
+    flex-direction: column; /* Stack button and progress */
+    align-items: center;
+    gap: 0.5rem; /* Space between button and progress */
+    flex: 2 1 0; /* Allow more space */
+    max-width: 720px; /* Limit max width like Spotify */
+  }
+  
+  .player-play-button {
+    background-color: var(--text-white); /* White button */
+    color: #000000; /* Black icon/text */
+    border: none;
+    border-radius: 50%; /* Circular button */
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    font-size: 1rem; /* Adjust icon size */
+  }
+  .player-play-button:hover {
+     transform: scale(1.1);
+  }
+  
+  .player-progress-bar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  
+  .player-time {
+      font-size: 0.75rem; /* text-xs */
+      color: var(--text-gray);
+      min-width: 30px; /* Prevent time from causing layout shifts */
+      text-align: center;
+  }
+  
+  /* Right: Volume Control */
+  .player-volume-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    min-width: 180px; /* Ensure minimum space */
+    flex: 1 1 0; /* Allow shrinking/growing */
+  }
+  
+  .player-placeholder-text {
+     color: var(--text-gray);
+     font-size: 0.875rem;
+  }
+  
+  /* Hidden ReactPlayer container */
+  .player-hidden-reactplayer {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  
+  
+  /* Styling for Range Inputs (Progress & Volume) */
+  input[type="range"].player-progress-bar,
+  input[type="range"].player-volume-slider {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 100%; /* Full width within container */
+    height: 4px; /* Bar height */
+    background: var(--progress-bar-bg);
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+  }
+  /* Style the volume slider slightly differently if needed */
+  input[type="range"].player-volume-slider {
+      max-width: 100px; /* Give volume slider a max width */
+  }
+  
+  
+  /* Range Input Track Filled Part (WebKit - Chrome, Safari, Edge) */
+  input[type="range"].player-progress-bar::-webkit-slider-runnable-track,
+  input[type="range"].player-volume-slider::-webkit-slider-runnable-track {
+      height: 4px;
+      background: linear-gradient(to right, var(--progress-bar-fg) 0%, var(--progress-bar-fg) var(--value-percent, 0%), var(--progress-bar-bg) var(--value-percent, 0%), var(--progress-bar-bg) 100%);
+      border-radius: 2px;
+  }
+  /* Update the gradient based on value - requires JS interaction or different technique */
+  /* Simplified: Just set the background color directly on the input */
+  input[type="range"].player-progress-bar,
+  input[type="range"].player-volume-slider {
+     background: linear-gradient(to right, var(--progress-bar-fg) 0%, var(--progress-bar-fg) calc(var(--value, 0) * 100%), var(--progress-bar-bg) calc(var(--value, 0) * 100%), var(--progress-bar-bg) 100%);
+  }
+  
+  /* Range Input Thumb (Handle) - WebKit */
+  input[type="range"].player-progress-bar::-webkit-slider-thumb,
+  input[type="range"].player-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px; /* Thumb size */
+    height: 12px;
+    background: var(--progress-bar-thumb);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -4px; /* Center thumb vertically */
+    opacity: 0; /* Hide thumb by default */
+    transition: opacity 0.2s ease;
+  }
+  
+  /* Show thumb on hover/interaction */
+  .player-progress-bar-container:hover input[type="range"].player-progress-bar::-webkit-slider-thumb,
+  .player-volume-section:hover input[type="range"].player-volume-slider::-webkit-slider-thumb,
+  input[type="range"].player-progress-bar:focus::-webkit-slider-thumb,
+  input[type="range"].player-volume-slider:focus::-webkit-slider-thumb {
+      opacity: 1;
+  }
+  
+  /* Change progress bar color on hover */
+  .player-progress-bar-container:hover input[type="range"].player-progress-bar,
+  .player-volume-section:hover input[type="range"].player-volume-slider {
+      background: linear-gradient(to right, var(--spotify-green) 0%, var(--spotify-green) calc(var(--value, 0) * 100%), var(--progress-bar-bg) calc(var(--value, 0) * 100%), var(--progress-bar-bg) 100%);
+  }
+  
+  /* Range Input - Firefox */
+  input[type="range"].player-progress-bar::-moz-range-track,
+  input[type="range"].player-volume-slider::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: var(--progress-bar-bg);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  input[type="range"].player-progress-bar::-moz-range-progress,
+  input[type="range"].player-volume-slider::-moz-range-progress {
+    height: 4px;
+    background: var(--progress-bar-fg); /* Color of filled track */
+    border-radius: 2px;
+  }
+  
+  /* Change progress color on hover */
+  .player-progress-bar-container:hover input[type="range"].player-progress-bar::-moz-range-progress,
+  .player-volume-section:hover input[type="range"].player-volume-slider::-moz-range-progress {
+     background: var(--spotify-green);
+  }
+  
+  
+  input[type="range"].player-progress-bar::-moz-range-thumb,
+  input[type="range"].player-volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--progress-bar-thumb);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    opacity: 0; /* Hide thumb by default */
+    transition: opacity 0.2s ease;
+  }
+  /* Show thumb on hover */
+  .player-progress-bar-container:hover input[type="range"].player-progress-bar::-moz-range-thumb,
+  .player-volume-section:hover input[type="range"].player-volume-slider::-moz-range-thumb,
+  input[type="range"].player-progress-bar:focus::-moz-range-thumb,
+  input[type="range"].player-volume-slider:focus::-moz-range-thumb {
+     opacity: 1;
+  }
+  
+  
+  /* Responsive adjustments for Player */
+  @media (max-width: 768px) {
+    .player-container {
+      /* Example: Stack controls differently or hide elements */
+      gap: 0.5rem;
+      padding: 0 0.5rem;
+    }
+     .player-song-info {
+        min-width: 100px; /* Reduce min width */
+        flex-shrink: 1; /* Allow shrinking more */
+     }
+     .player-thumbnail {
+        width: 40px;
+        height: 40px;
+     }
+     .player-title {
+        font-size: 0.75rem;
+     }
+     .player-artist {
+         display: none; /* Hide artist on small screens */
+     }
+     .player-controls-progress {
+         max-width: none; /* Remove max width limit */
+         flex-grow: 1; /* Take up more space */
+     }
+     .player-volume-section {
+         min-width: auto;
+         flex: 0 0 auto; /* Don't grow/shrink, take content size */
+         /* Optionally hide volume slider or replace with icon */
+         /* display: none; */
+     }
+     .player-volume-slider {
+        max-width: 60px; /* Smaller slider */
+     }
+  }
+  
+  /* Further adjustments for very small screens */
+  @media (max-width: 480px) {
+      .player-progress-bar-container {
+         /* Hide time stamps on very small screens */
+         display: none;
+      }
+       .player-volume-section {
+           display: none; /* Hide volume controls */
+       }
+  }
+  
+  /* Add this JS in your component to update the --value CSS variable for the gradient */
+  /*
+  useEffect(() => {
+    const progressBar = document.querySelector('.player-progress-bar');
+    if (progressBar) {
+      progressBar.style.setProperty('--value', played);
+    }
+    const volumeSlider = document.querySelector('.player-volume-slider');
+    if (volumeSlider) {
+       volumeSlider.style.setProperty('--value', volume);
+    }
+  }, [played, volume]);
+  */
+  /* Make sure to actually implement the JS part above in Player.js for the gradient fill to work! */

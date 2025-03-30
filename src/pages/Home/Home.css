@@ -1,0 +1,66 @@
+/* src/pages/Home/Home.css */
+:root {
+    --text-white: #ffffff;
+    --text-gray: #b3b3b3;
+    --grid-gap: 1rem; /* Default gap */
+    /* Define breakpoints or use fluid calculations */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+  }
+  
+  .home-page-container {
+    /* Container padding is handled by .main-content in App.css */
+    width: 100%;
+  }
+  
+  .page-title {
+    color: var(--text-white);
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 1rem; /* mb-4 */
+  }
+  
+  @media (min-width: 768px) { /* md */
+    .page-title {
+      font-size: 1.875rem; /* text-3xl */
+      margin-bottom: 1.5rem; /* mb-6 */
+    }
+  }
+  
+  .song-grid-container {
+    display: grid;
+    gap: var(--grid-gap);
+    /* Fluid grid columns - Adjust minmax() for desired card size */
+    /* Starts with 1 column, adds more as space allows */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+  
+  .loading-message {
+     color: var(--text-gray);
+     text-align: center;
+     padding: 2rem;
+     font-size: 1rem;
+  }
+  
+  /* Responsive adjustments for the grid */
+  /* Example: Increase min card width on larger screens */
+  @media (min-width: var(--breakpoint-sm)) { /* sm */
+      .song-grid-container {
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+          gap: 1.25rem;
+      }
+  }
+  
+  @media (min-width: var(--breakpoint-lg)) { /* lg */
+      .song-grid-container {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 1.5rem;
+      }
+  }
+  
+  /* Note: The original SongCard component had specific width classes (sm:w-1/2, md:w-1/3 etc.). */
+  /* This grid approach (repeat(auto-fill, minmax())) is generally more robust and fluid. */
+  /* The SongCard itself should just be width: 100% to fill its grid cell. */
