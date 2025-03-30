@@ -1,4 +1,3 @@
-// RecentlyPlayed.js
 import React, { useState, useEffect } from "react";
 import SongCard from "../../components/SongCard/SongCard"; // Assuming SongCard is updated
 import './RecentlyPlayed.css'; // Import the CSS

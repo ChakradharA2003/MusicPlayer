@@ -1,4 +1,3 @@
-// Home.js
 import React, { useEffect, useState } from "react";
 import SongCard from "../../components/SongCard/SongCard"; // Assuming SongCard is updated
 import { fetchTrendingSongs } from "../../utils/YoutubeApi";
@@ -38,17 +37,12 @@ const Home = ({ searchResults, onPlay }) => {
               title={song.title}
               artist={song.artist}
               thumbnail={song.thumbnail}
-              // Construct the URL correctly - needs validation/adjustment
-              // The original code had a hardcoded URL structure which is likely incorrect.
-              // You might need a way to get the actual playable URL from the API or another source.
-              // Using a placeholder '#' or leaving it undefined if no valid URL exists.
               url={`https://www.youtube.com/watch?v=${song.id}`} // Example direct YouTube link (may not work in ReactPlayer directly without adjustments)
               onPlay={onPlay} // Pass the onPlay function directly
             />
           ))}
         </div>
       ) : (
-         // Optional: Add a loading indicator or message
           <p className="loading-message">Loading songs...</p>
       )}
     </div>

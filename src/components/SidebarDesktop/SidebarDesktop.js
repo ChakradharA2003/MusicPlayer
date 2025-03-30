@@ -3,8 +3,6 @@ import React from "react";
 import './SidebarDesktop.css'; // Import the CSS
 
 const SidebarDesktop = ({ setActivePage }) => {
-  // Note: The original code used fixed positioning from top-16.
-  // App.css now handles the overall layout, so this sidebar just needs to fill its container.
   return (
     // Use class names defined in SidebarDesktop.css
     <nav className="sidebar-desktop-container">

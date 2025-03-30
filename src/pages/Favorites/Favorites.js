@@ -1,4 +1,3 @@
-// Favorites.js
 import React, { useState, useEffect } from "react";
 import SongCard from "../../components/SongCard/SongCard"; // Assuming SongCard is updated
 import './Favorites.css'; // Import the CSS

@@ -67,9 +67,33 @@
   display: flex;
   flex-direction: column; /* Stack button and progress */
   align-items: center;
-  gap: 0.5rem; /* Space between button and progress */
+  gap: 0.75rem; /* Increased gap for controls and progress */
   flex: 2 1 0; /* Allow more space */
   max-width: 720px; /* Limit max width like Spotify */
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Space between control buttons */
+}
+
+.player-control-button {
+  background: none;
+  border: none;
+  color: var(--text-white);
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1rem; /* Adjust icon size */
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.player-control-button:hover,
+.player-control-button:focus {
+  opacity: 1;
+  transform: scale(1.1);
+  outline: none; /* Remove default focus outline */
 }
 
 .player-play-button {
@@ -77,14 +101,14 @@
   color: #000000; /* Black icon/text */
   border: none;
   border-radius: 50%; /* Circular button */
-  width: 32px;
-  height: 32px;
+  width: 40px; /* Slightly larger play/pause button */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: transform 0.1s ease;
-  font-size: 1rem; /* Adjust icon size */
+  font-size: 1.2rem; /* Adjust play/pause icon size */
 }
 .player-play-button:hover {
   transform: scale(1.1);
@@ -110,13 +134,14 @@
   align-items: center;
   gap: 0.5rem;
   justify-content: flex-end;
-  min-width: 180px; /* Ensure minimum space */
-  flex: 1 1 0; /* Allow shrinking/growing */
+  min-width: 100px; /* Adjusted min width */
+  flex: 0 0 auto; /* Don't grow/shrink, take content size */
 }
 
 .player-placeholder-text {
   color: var(--text-gray);
   font-size: 0.875rem;
+  text-align: center; /* Center placeholder text */
 }
 
 /* Hidden ReactPlayer container */
@@ -173,15 +198,7 @@ input[type="range"].player-volume-slider::-webkit-slider-thumb {
   transition: opacity 0.2s ease;
 }
 
-/* Style for thumb on hover/interaction (optional - if you want a hover effect on the thumb) */
-/*
-.player-progress-bar-container:hover input[type="range"].player-progress-bar::-webkit-slider-thumb,
-.player-volume-section:hover input[type="range"].player-volume-slider::-webkit-slider-thumb,
-input[type="range"].player-progress-bar:focus::-webkit-slider-thumb,
-input[type="range"].player-volume-slider:focus::-webkit-slider-thumb {
-  opacity: 1;
-}
-*/
+
 
 /* Change progress bar color on hover - MODIFY TO AVOID OVERRIDING ALWAYS VISIBLE */
 .player-progress-bar-container:hover input[type="range"].player-progress-bar,
@@ -224,75 +241,74 @@ input[type="range"].player-volume-slider::-moz-range-thumb {
   opacity: 1; /* Always show thumb */
   transition: opacity 0.2s ease;
 }
-/* Style for thumb on hover (optional) */
-/*
-.player-progress-bar-container:hover input[type="range"].player-progress-bar::-moz-range-thumb,
-.player-volume-section:hover input[type="range"].player-volume-slider::-moz-range-thumb,
-input[type="range"].player-progress-bar:focus::-moz-range-thumb,
-input[type="range"].player-volume-slider:focus::-moz-range-thumb {
-  opacity: 1;
-}
-*/
+
 
 
 /* Responsive adjustments for Player */
 @media (max-width: 768px) {
   .player-container {
-      /* Example: Stack controls differently or hide elements */
-      gap: 0.5rem;
-      padding: 0 0.5rem;
+      gap: 0.75rem;
+      padding: 0 0.75rem;
   }
   .player-song-info {
-      min-width: 100px; /* Reduce min width */
-      flex-shrink: 1; /* Allow shrinking more */
+      min-width: 0; /* Allow more shrinking */
   }
   .player-thumbnail {
       width: 40px;
       height: 40px;
   }
   .player-title {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
   }
   .player-artist {
-      display: none; /* Hide artist on small screens */
+      display: none; /* Hide artist on smaller screens */
   }
   .player-controls-progress {
-      max-width: none; /* Remove max width limit */
-      flex-grow: 1; /* Take up more space */
+      gap: 0.5rem;
+  }
+  .player-controls {
+      gap: 1rem;
+  }
+  .player-play-button {
+      width: 36px;
+      height: 36px;
+      font-size: 1.1rem;
   }
   .player-volume-section {
       min-width: auto;
-      flex: 0 0 auto; /* Don't grow/shrink, take content size */
-      /* Optionally hide volume slider or replace with icon */
-      /* display: none; */
   }
   .player-volume-slider {
-      max-width: 60px; /* Smaller slider */
+      max-width: 80px;
   }
 }
 
 /* Further adjustments for very small screens */
 @media (max-width: 480px) {
-  .player-progress-bar-container {
-      /* Hide time stamps on very small screens */
-      display: none;
+  .player-song-info {
+      /* Further adjustments if needed */
+  }
+  .player-text-info {
+      /* Adjust title/artist display */
+  }
+  .player-controls {
+      gap: 0.75rem;
+  }
+  .player-play-button {
+      width: 32px;
+      height: 32px;
+      font-size: 1rem;
   }
   .player-volume-section {
-      display: none; /* Hide volume controls */
+      /* Optionally hide volume controls on very small screens */
+      /* display: none; */
+  }
+  .player-time {
+      font-size: 0.7rem;
+      min-width: 25px;
   }
 }
 
-/* Add this JS in your component to update the --value CSS variable for the gradient */
-/*
-useEffect(() => {
-  const progressBar = document.querySelector('.player-progress-bar');
-  if (progressBar) {
-      progressBar.style.setProperty('--value', played);
-  }
-  const volumeSlider = document.querySelector('.player-volume-slider');
-  if (volumeSlider) {
-      volumeSlider.style.setProperty('--value', volume);
-  }
-}, [played, volume]);
-*/
-/* Make sure to actually implement the JS part above in Player.js for the gradient fill to work! */
+/* Ensure progress bar is always visible */
+.player-progress-bar-container {
+  display: flex; /* Ensure it's a flex container */
+}

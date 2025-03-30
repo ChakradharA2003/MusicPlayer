@@ -1,12 +1,12 @@
 // App.js
 import React, { useState } from "react";
-import Navbar from "./components/Navbar/Navbar"; // Assuming Navbar is updated
-import SidebarDesktop from "./components/SidebarDesktop/SidebarDesktop"; // Assuming SidebarDesktop is updated
-import Home from "./pages/Home/Home"; // Assuming Home is updated
-import Favorites from "./pages/Favorites/Favorites"; // Assuming Favorites is updated
-import RecentlyPlayed from "./pages/RecentlyPlayed/RecentlyPlayed"; // Assuming RecentlyPlayed is updated
-import Player from "./components/Player/Player"; // Assuming Player is updated
-import './App.css'; // Import the main App CSS
+import Navbar from "./components/Navbar/Navbar"; 
+import SidebarDesktop from "./components/SidebarDesktop/SidebarDesktop"; 
+import Home from "./pages/Home/Home"; 
+import Favorites from "./pages/Favorites/Favorites"; 
+import RecentlyPlayed from "./pages/RecentlyPlayed/RecentlyPlayed"; 
+import Player from "./components/Player/Player"; 
+import './App.css'; 
 
 const App = () => {
   const [activePage, setActivePage] = useState("home");
@@ -42,7 +42,6 @@ const App = () => {
   };
 
   return (
-    // Use specific class names defined in App.css
     <div className="app-container">
       {/* Navbar remains fixed at the top */}
       <Navbar setSearchResults={setSearchResults} setActivePage={setActivePage} />
@@ -57,7 +56,6 @@ const App = () => {
 
         {/* Page Content Area */}
         <main className="main-content">
-           {/* Optional: Add a container to constrain content width */}
            <div className="content-inner-wrapper">
              {renderPage()}
            </div>
@@ -66,7 +64,6 @@ const App = () => {
 
       {/* Player remains fixed at the bottom */}
       <div className="player-wrapper">
-         {/* Player component goes here, ensure it uses its own CSS */}
          <Player
            url={currentSong.url}
            isPlaying={isPlaying}

@@ -1,9 +1,8 @@
-/* src/App.css */
-/* Using CSS variables from a global scope (like index.css) or redefining */
+
 :root {
   --spotify-black: #121212;
-  --navbar-height: 60px; /* Estimate based on padding, adjust if needed */
-  --player-height: 65px; /* Estimate based on Player padding/content, adjust */
+  --navbar-height: 60px; 
+  --player-height: 77px; 
   --sidebar-width: 220px; /* w-64 */
 }
 
@@ -100,6 +99,7 @@ html, body {
     margin-top: 0px;
     /* No need for fixed height calculation here as main-layout grows */
   }
+  
 
   .content-inner-wrapper {
     padding-left: 0; /* Remove left padding as main-content is already shifted */

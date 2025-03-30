@@ -1,8 +1,5 @@
-// youtubeApi.js
-// NOTE: Replace 'YOUR_API_KEY' with your actual YouTube Data API key.
-// Be cautious about exposing API keys directly in client-side code.
-// Consider using a backend proxy for API requests in production.
-const API_KEY = "AIzaSyCdX074Gd6WdxSgB5QoCdwhm0pNMBLcCBc"; // Replace with your key
+
+const API_KEY = "AIzaSyCdX074Gd6WdxSgB5QoCdwhm0pNMBLcCBc"; 
 const BASE_URL = "https://www.googleapis.com/youtube/v3";
 
 // Helper function to extract necessary data
@@ -24,8 +21,6 @@ const formatSongData = (item) => {
       title: snippet.title || "Unknown Title", // Add fallback
       artist: snippet.channelTitle || "Unknown Artist", // Use channelTitle as artist
       thumbnail: thumbnailUrl,
-      // Construct a standard YouTube watch URL - ReactPlayer can usually handle these
-      // This assumes videoId is correctly extracted above
       url: videoId ? `https://www.youtube.com/watch?v=${videoId}` : '' // Add check for videoId
     };
 };

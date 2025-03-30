@@ -1,4 +1,3 @@
-/* src/components/SidebarDesktop.css */
 /* Using variables from a global scope (index.css) or define locally */
 :root {
     --spotify-black: #121212;
@@ -49,10 +48,9 @@
     outline: none; /* Remove default focus outline if providing alternative */
   }
   
-  /* Optional: Active state styling if you pass an 'activePage' prop and compare */
-  /*
+  
   .sidebar-desktop-nav-item.active {
     color: var(--text-white);
-    background-color: var(--spotify-green); // Or a gray highlight
+    background-color: var(--spotify-green); /* Or a gray highlight */
   }
-  */
+  
