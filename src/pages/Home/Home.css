@@ -1,66 +1,78 @@
 /* src/pages/Home/Home.css */
 :root {
-    --text-white: #ffffff;
-    --text-gray: #b3b3b3;
-    --grid-gap: 1rem; /* Default gap */
-    /* Define breakpoints or use fluid calculations */
-    --breakpoint-sm: 640px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 1024px;
-    --breakpoint-xl: 1280px;
-    --breakpoint-2xl: 1536px;
-  }
-  
-  .home-page-container {
-    /* Container padding is handled by .main-content in App.css */
-    width: 100%;
-  }
-  
+  --text-white: #ffffff;
+  --text-gray: #b3b3b3;
+  --card-margin: 0rem; /* Margin between cards */
+  /* Define breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+.home-page-container {
+  width: 100%;
+}
+
+.page-title {
+  color: var(--text-white);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) { /* md */
   .page-title {
-    color: var(--text-white);
-    font-size: 1.5rem; /* text-2xl */
-    font-weight: 700; /* font-bold */
-    margin-bottom: 1rem; /* mb-4 */
+    font-size: 1.875rem;
+    margin-bottom: 1.5rem;
   }
-  
-  @media (min-width: 768px) { /* md */
-    .page-title {
-      font-size: 1.875rem; /* text-3xl */
-      margin-bottom: 1.5rem; /* mb-6 */
-    }
+}
+
+.song-grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 calc(-1 * var(--card-margin));
+}
+
+.song-grid-container > * {
+  margin: var(--card-margin);
+  /* Initial width for very small screens (likely one card) */
+  flex-basis: 100%;
+}
+
+.loading-message {
+  color: var(--text-gray);
+  text-align: center;
+  padding: 2rem;
+  font-size: 1rem;
+}
+
+/* 1. Device width: 320px to 380px - 2 songs */
+@media (min-width: 320px) and (max-width: 380px) {
+  .song-grid-container > * {
+    flex-basis: calc(50% - (2 * var(--card-margin)));
   }
-  
-  .song-grid-container {
-    display: grid;
-    gap: var(--grid-gap);
-    /* Fluid grid columns - Adjust minmax() for desired card size */
-    /* Starts with 1 column, adds more as space allows */
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+/* 2. Device width: 381px to 559px - 4 songs */
+@media (min-width: 381px) and (max-width: 559px) {
+  .song-grid-container > * {
+    flex-basis: calc(25% - (2 * var(--card-margin)));
   }
-  
-  .loading-message {
-     color: var(--text-gray);
-     text-align: center;
-     padding: 2rem;
-     font-size: 1rem;
+}
+
+/* 3. Device width: 560px to 767px - at least 6 songs */
+@media (min-width: 560px) and (max-width: 767px) {
+  .song-grid-container > * {
+    flex-basis: calc(16.666% - (2 * var(--card-margin))); /* Aim for 6 */
   }
-  
-  /* Responsive adjustments for the grid */
-  /* Example: Increase min card width on larger screens */
-  @media (min-width: var(--breakpoint-sm)) { /* sm */
-      .song-grid-container {
-          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-          gap: 1.25rem;
-      }
+}
+
+/* 4. Device width: above 767px - Desktop view (leave as is or adjust for your desktop layout) */
+@media (min-width: var(--breakpoint-md)) { /* 768px and above */
+  .song-grid-container > * {
+    flex-basis: calc(20% - (2 * var(--card-margin))); /* Example: Aim for 5 on larger tablets/small desktops */
+    /* You can further adjust this for larger desktop screens if needed */
   }
-  
-  @media (min-width: var(--breakpoint-lg)) { /* lg */
-      .song-grid-container {
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-          gap: 1.5rem;
-      }
-  }
-  
-  /* Note: The original SongCard component had specific width classes (sm:w-1/2, md:w-1/3 etc.). */
-  /* This grid approach (repeat(auto-fill, minmax())) is generally more robust and fluid. */
-  /* The SongCard itself should just be width: 100% to fill its grid cell. */
+}
